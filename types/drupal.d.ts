@@ -1,5 +1,12 @@
-import {DrupalNode, DrupalTaxonomyTerm} from "next-drupal";
+import { DrupalNode, DrupalParagraph, DrupalTaxonomyTerm } from "next-drupal";
 
-interface CustomNode extends DrupalNode {
+export interface RichTextField {
+  format: string;
+  processed: string;
+  value: string;
+}
+
+export interface CustomNode extends DrupalNode {
   field_tags: DrupalTaxonomyTerm[];
+  field_components: DrupalParagraph[];
 }

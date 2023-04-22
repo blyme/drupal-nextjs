@@ -3,6 +3,7 @@ import Image from "next/image"
 import {absoluteUrl, formatDate} from "lib/utils"
 import {CustomNode} from "../types/drupal";
 import Link from "next/link";
+import {ComponentManager} from "./ComponentManager";
 
 
 interface NodeArticleProps {
@@ -45,6 +46,11 @@ export function NodeArticle({node, ...props}: NodeArticleProps) {
         />
       )}
 
+      {node.field_components.length && (
+        <div className="mt-6">
+          <ComponentManager components={node.field_components} />
+        </div>
+      )}
       <div className="flex items-center gap-1">
         <h4 className="font-bold">Read more:</h4>
         {node.field_tags.map((tag) => (

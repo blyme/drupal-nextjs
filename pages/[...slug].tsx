@@ -51,7 +51,7 @@ export async function getStaticProps(
   let params = {}
   if (type === "node--article") {
     params = {
-      include: "field_image,uid,field_tags",
+      include: "field_image,uid,field_tags,field_components",
     }
   }
 
