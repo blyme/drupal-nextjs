@@ -1,13 +1,15 @@
 import Image from "next/image"
-import { DrupalNode } from "next-drupal"
 
-import { absoluteUrl, formatDate } from "lib/utils"
+import {absoluteUrl, formatDate} from "lib/utils"
+import {CustomNode} from "../types/drupal";
+import Link from "next/link";
+
 
 interface NodeArticleProps {
-  node: DrupalNode
+  node: CustomNode
 }
 
-export function NodeArticle({ node, ...props }: NodeArticleProps) {
+export function NodeArticle({node, ...props}: NodeArticleProps) {
   return (
     <article {...props}>
       <h1 className="mb-4 text-6xl font-black leading-tight">{node.title}</h1>
@@ -38,10 +40,21 @@ export function NodeArticle({ node, ...props }: NodeArticleProps) {
       )}
       {node.body?.processed && (
         <div
-          dangerouslySetInnerHTML={{ __html: node.body?.processed }}
+          dangerouslySetInnerHTML={{__html: node.body?.processed}}
           className="mt-6 font-serif text-xl leading-loose prose"
         />
       )}
+
+      <div className="flex items-center gap-1">
+        <h4 className="font-bold">Read more:</h4>
+        {node.field_tags.map((tag) => (
+          <Link key={tag.id} href={tag.path.alias}>
+            <p key={tag.id}>
+              {tag.name}
+            </p>
+          </Link>
+        ))}
+      </div>
     </article>
   )
 }

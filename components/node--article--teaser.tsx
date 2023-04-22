@@ -26,6 +26,7 @@ export function NodeArticleTeaser({ node, ...props }: NodeArticleTeaserProps) {
       {node.field_image && (
         <figure className="my-4">
           <Image
+            priority
             src={absoluteUrl(node.field_image.uri.url)}
             width={768}
             height={480}

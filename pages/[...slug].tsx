@@ -1,16 +1,16 @@
 import { GetStaticPathsResult, GetStaticPropsResult } from "next"
 import Head from "next/head"
-import { DrupalNode } from "next-drupal"
 
 import { drupal } from "lib/drupal"
 import { NodeArticle } from "components/node--article"
 import { NodeBasicPage } from "components/node--basic-page"
 import { Layout } from "components/layout"
+import {CustomNode} from "../types/drupal";
 
 const RESOURCE_TYPES = ["node--page", "node--article"]
 
 interface NodePageProps {
-  resource: DrupalNode
+  resource: CustomNode
 }
 
 export default function NodePage({ resource }: NodePageProps) {
@@ -51,11 +51,11 @@ export async function getStaticProps(
   let params = {}
   if (type === "node--article") {
     params = {
-      include: "field_image,uid",
+      include: "field_image,uid,field_tags",
     }
   }
 
-  const resource = await drupal.getResourceFromContext<DrupalNode>(
+  const resource = await drupal.getResourceFromContext<CustomNode>(
     path,
     context,
     {
